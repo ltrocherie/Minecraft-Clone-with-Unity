@@ -96,7 +96,7 @@ public class Chunk : MonoBehaviour
                             vertices.Add(blockPos + new Vector3(0, 0, 0));
                             vertices.Add(blockPos + new Vector3(1, 0, 0));
                             vertices.Add(blockPos + new Vector3(1, 0, 1));
-                            vertices.Add(blockPos + new Vector3(1, 0, 1));
+                            vertices.Add(blockPos + new Vector3(0, 0, 1));
                             numberOfFaces++;
                         }
 
@@ -106,7 +106,7 @@ public class Chunk : MonoBehaviour
                         {
                             vertices.Add(blockPos + new Vector3(0, 0, 0));
                             vertices.Add(blockPos + new Vector3(0, 1, 0));
-                            vertices.Add(blockPos + new Vector3(1, 1, 1));
+                            vertices.Add(blockPos + new Vector3(1, 1, 0));
                             vertices.Add(blockPos + new Vector3(1, 0, 0));
                             numberOfFaces++;
                         }
