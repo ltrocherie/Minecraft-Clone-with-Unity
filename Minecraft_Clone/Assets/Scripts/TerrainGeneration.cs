@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TerrainGeneration : MonoBehaviour
 {
-    public GameObject cube;
+    public GameObject chunk;
 
     FastNoise noise = new FastNoise();
 
@@ -14,16 +14,15 @@ public class TerrainGeneration : MonoBehaviour
     void Start()
     {
 
-        int limit = 50;
+        int limit = 64;
 
-        for(int x = -limit; x < limit; x++)
+        for(int x = -limit; x < limit; x += 15)
         {
-            for(int z = -limit; z < limit; z++)
+            for(int z = -limit; z < limit; z += 15)
             {
                 //print(noise.GetSimplex(x, z));
-                float y = (float)Math.Floor(noise.GetSimplex(x * .8f, z * .8f) * 20);
-                GameObject cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
-                cubeInst.transform.SetParent(gameObject.transform);
+                GameObject chunkInst = Instantiate(chunk, new Vector3(x, 0, z), Quaternion.identity);
+                chunkInst.transform.SetParent(gameObject.transform);
             }
         }
     }
