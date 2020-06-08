@@ -22,9 +22,9 @@ public class TerrainGeneration : MonoBehaviour
     public GameObject player;
 
     public int chunkWidth;
-    int chunkDistance = 5;
+    int chunkDistance = 6;
 
-    //private int xInferiorLimit = -64, xSuperiorLimit = 64, zInferiorLimit = -64, zSuperiorLimit = 64;
+    private int offSet = 1;
 
     FastNoise noise = new FastNoise();
 
@@ -40,14 +40,6 @@ public class TerrainGeneration : MonoBehaviour
     void Start()
     {
 
-        /*        for(int x = xInferiorLimit; x < xSuperiorLimit; x += chunkWidth - 1)
-                {
-                    for(int z = zInferiorLimit; z < zSuperiorLimit; z += chunkWidth - 1)
-                    {
-                        BuildChunk(x, z);
-                    }
-                }*/
-
         LoadChunks(true);
 
     }
@@ -55,16 +47,6 @@ public class TerrainGeneration : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        /*        if(player.transform.position.x > ((xInferiorLimit + xSuperiorLimit)/2 + chunkWidth))
-                {
-                    for (int z = zInferiorLimit; z < zSuperiorLimit; z += chunkWidth - 1)
-                    {
-                        GameObject chunkInst = Instantiate(chunk, new Vector3(xSuperiorLimit - 1, 0, z), Quaternion.identity);
-                        chunkInst.transform.SetParent(gameObject.transform);
-                    }
-                    xSuperiorLimit += chunkWidth;
-                    xInferiorLimit += chunkWidth;
-                }*/
 
         LoadChunks();
     }
@@ -116,9 +98,9 @@ public class TerrainGeneration : MonoBehaviour
             currentChunk.x = playerX;
             currentChunk.z = playerZ;
 
-            for(int i = playerX - chunkWidth * chunkDistance; i <= currentChunk.x + chunkWidth * chunkDistance; i += chunkWidth)
+            for(int i = playerX - chunkWidth * chunkDistance; i <= currentChunk.x + chunkWidth * chunkDistance; i += chunkWidth - offSet)
             {
-                for (int j = playerZ - chunkWidth * chunkDistance; j <= currentChunk.z + chunkWidth * chunkDistance; j += chunkWidth)
+                for (int j = playerZ - chunkWidth * chunkDistance; j <= currentChunk.z + chunkWidth * chunkDistance; j += chunkWidth - offSet)
                 {
                     ChunkPos chunkPos = new ChunkPos(i, j);
 
@@ -126,7 +108,7 @@ public class TerrainGeneration : MonoBehaviour
                     {
                         if (instant)
                         {
-                            BuildChunk(i - 1, j - 1);
+                            BuildChunk(i, j);
                         }
                         else
                         {
@@ -163,6 +145,7 @@ public class TerrainGeneration : MonoBehaviour
                 chunks.Remove(chunkPos);
             }
 
+
             StartCoroutine(DelayBuildChunk());
         }
 
@@ -171,7 +154,7 @@ public class TerrainGeneration : MonoBehaviour
 
     IEnumerator DelayBuildChunk()
     {
-        while(toGenerate.Count > 0)
+        while (toGenerate.Count > 0)
         {
             BuildChunk(toGenerate[0].x, toGenerate[0].z);
             toGenerate.RemoveAt(0);
