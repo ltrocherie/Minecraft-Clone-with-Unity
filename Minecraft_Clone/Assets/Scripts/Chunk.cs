@@ -19,7 +19,7 @@ public class Chunk : MonoBehaviour
     {
 
 
-        for (int x = 0; x < chunkWidth; x++)
+/*        for (int x = 0; x < chunkWidth; x++)
         {
             for (int z = 0; z < chunkWidth; z++)
             {
@@ -27,17 +27,17 @@ public class Chunk : MonoBehaviour
                 {
                     blocks[x, y, z] = GetBlockType((int)transform.position.x + x, y, (int)transform.position.z + z);
 
-                    /*if (blocks[x, y, z] == BlockType.Ground)
+                    *//*if (blocks[x, y, z] == BlockType.Ground)
                     {
                         GameObject cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
                         cubeInst.transform.SetParent(gameObject.transform);
-                    }*/
+                    }*//*
 
                 }
 
-                buildMesh();
+                BuildMesh();
             }
-        }
+        }*/
 
 
     }
@@ -48,7 +48,7 @@ public class Chunk : MonoBehaviour
         
     }
 
-    BlockType GetBlockType(int x, int y, int z)
+    public BlockType GetBlockType(int x, int y, int z)
     {
         BlockType blockType = BlockType.Air;
 
@@ -61,7 +61,7 @@ public class Chunk : MonoBehaviour
         return blockType;
     }
 
-    void buildMesh()
+    public void BuildMesh()
     {
         Mesh mesh = new Mesh();
 
